@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+    <Properties>
+        <Property name="baseDir">log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </Pattern>>
+            </PatternLayout>
+        </Console>
+        <RollingFile name="RollingFile"
+                     fileName="${baseDir}/java.log"
+                     filePattern="${baseDir}/archive/java.log.%d{yyyy-MM-dd}.zip">
+            <PatternLayout>
+                <Pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRollOverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+        <Logger name="com.yejianfengblue.java"
+                additivity="false"
+                level="trace">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>
