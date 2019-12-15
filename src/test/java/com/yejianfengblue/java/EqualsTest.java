@@ -132,7 +132,7 @@ class EqualsTest {
      */
     @Nested
     @DisplayName("Pitfall #2: define equals without also defining hashcode")
-    class Pitfall2_defineEqualsWithoutAlsoDefiningHashCode{
+    class Pitfall2_defineEqualsWithoutAlsoDefiningHashCode {
 
         /**
          * A Point with coordinate x and y whose defined equals() has correct signature equals(Object)
@@ -148,7 +148,7 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return (this.getX() == that.getX() && this.getY() == that.getY());
                 }
                 return false;
@@ -158,7 +158,7 @@ class EqualsTest {
         @Test
         @DisplayName("Point.equals(Object) invokes the redefined Point.equals(Object)")
         @Order(1)
-        // repeat the test in Pitfall1_defineEqualsWithWrongSignature.givenAliasOfClassObject_whenCallPointEqualsObject_thenDefaultObjectEqualsMethodIsCalled()
+            // repeat the test in Pitfall1_defineEqualsWithWrongSignature.givenAliasOfClassObject_whenCallPointEqualsObject_thenDefaultObjectEqualsMethodIsCalled()
         void givenAliasOfClassObject_whenCallPointEqualsObject_thenRedefinedEqualsMethodIsCalled() {
 
             Point p1 = new Point(1, 2);
@@ -201,7 +201,8 @@ class EqualsTest {
         /**
          * A Point with coordinate x and y with redefined equals and hashCode
          */
-        @Data @AllArgsConstructor
+        @Data
+        @AllArgsConstructor
         private class Point {
 
             private int x;
@@ -212,13 +213,14 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return (this.getX() == that.getX() && this.getY() == that.getY());
                 }
                 return false;
             }
 
-            @Override public int hashCode() {
+            @Override
+            public int hashCode() {
                 return (41 * (41 + getX()) + getY());
             }
         }
@@ -273,13 +275,14 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return (this.getX() == that.getX() && this.getY() == that.getY());
                 }
                 return false;
             }
 
-            @Override public int hashCode() {
+            @Override
+            public int hashCode() {
                 return (41 * (41 + getX()) + getY());
             }
         }
@@ -300,7 +303,7 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof ColoredPoint) {
-                    ColoredPoint that = (ColoredPoint)other;
+                    ColoredPoint that = (ColoredPoint) other;
                     return this.color.equals(that.color) && super.equals(that);
                 }
                 return false;
@@ -340,13 +343,14 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return (this.getX() == that.getX() && this.getY() == that.getY());
                 }
                 return false;
             }
 
-            @Override public int hashCode() {
+            @Override
+            public int hashCode() {
                 return (41 * (41 + getX()) + getY());
             }
         }
@@ -368,10 +372,10 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof ColoredPoint) {
-                    ColoredPoint that = (ColoredPoint)other;
+                    ColoredPoint that = (ColoredPoint) other;
                     return this.color.equals(that.color) && super.equals(that);
                 } else if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return that.equals(this);
                 }
                 return false;
@@ -394,7 +398,7 @@ class EqualsTest {
     }
 
     @Nested
-    class alwaysTreatObjectsOfDiffClassesAsDiff{
+    class alwaysTreatObjectsOfDiffClassesAsDiff {
 
         @Data
         @NoArgsConstructor
@@ -408,7 +412,7 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return (this.getClass().equals(that.getClass())
                             && this.getX() == that.getX()
                             && this.getY() == that.getY());
@@ -416,7 +420,8 @@ class EqualsTest {
                 return false;
             }
 
-            @Override public int hashCode() {
+            @Override
+            public int hashCode() {
                 return (41 * (41 + getX()) + getY());
             }
         }
@@ -438,10 +443,10 @@ class EqualsTest {
             public boolean equals(Object other) {
 
                 if (other instanceof ColoredPoint) {
-                    ColoredPoint that = (ColoredPoint)other;
+                    ColoredPoint that = (ColoredPoint) other;
                     return this.color.equals(that.color) && super.equals(that);
                 } else if (other instanceof Point) {
-                    Point that = (Point)other;
+                    Point that = (Point) other;
                     return that.equals(this);
                 }
                 return false;
@@ -459,6 +464,5 @@ class EqualsTest {
             assertFalse(p.equals(blueP));
             assertFalse(redP.equals(blueP));
         }
-
     }
 }

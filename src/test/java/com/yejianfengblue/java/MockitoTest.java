@@ -23,7 +23,6 @@ class MockitoTest {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-
     @Test
     void givenMockObject_whenMakeInteractions_thenCanVerify() {
 

@@ -38,7 +38,7 @@ class ProxyTest {
 
         Map proxyInstance = (Map) Proxy.newProxyInstance(
                 getClass().getClassLoader(),
-                new Class[] { Map.class },
+                new Class[]{Map.class},
                 new DynamicInvocationHandler());
 
         proxyInstance.put("hello", "world");
@@ -58,7 +58,7 @@ class ProxyTest {
                                 "Unsupported method: " + method.getName());
                     }
                 });
-        assertEquals(42, (int)proxyInstance.get("Hello"));
+        assertEquals(42, (int) proxyInstance.get("Hello"));
     }
 
     static class TimingDynamicInvocationHandler implements InvocationHandler {
@@ -94,14 +94,14 @@ class ProxyTest {
 
         Map mapProxyInstance = (Map) Proxy.newProxyInstance(
                 ProxyTest.class.getClassLoader(),
-                new Class [] { Map.class },
+                new Class[]{Map.class},
                 new TimingDynamicInvocationHandler(new HashMap()));
 
         mapProxyInstance.put("hello", "world");
 
         CharSequence charSequenceProxyInstance = (CharSequence) Proxy.newProxyInstance(
                 ProxyTest.class.getClassLoader(),
-                new Class[] { CharSequence.class },
+                new Class[]{CharSequence.class},
                 new TimingDynamicInvocationHandler("Hello World")
         );
 

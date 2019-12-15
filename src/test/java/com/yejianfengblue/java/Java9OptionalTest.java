@@ -24,7 +24,7 @@ class Java9OptionalTest {
     class OptionalOr {
 
         @Test
-        void givenJava8Optional_whenPresent_thenTakeAnUnwrappedValueFromOrElse () {
+        void givenJava8Optional_whenPresent_thenTakeAnUnwrappedValueFromOrElse() {
 
             // given
             Optional<String> emptyOptional = Optional.empty();
@@ -38,7 +38,7 @@ class Java9OptionalTest {
         }
 
         @Test
-        void givenJava8Optional_whenPresent_thenTakeAnUnwrappedValueFromOrElseGet () {
+        void givenJava8Optional_whenPresent_thenTakeAnUnwrappedValueFromOrElseGet() {
 
             // given
             Optional<String> emptyOptional = Optional.empty();
@@ -52,7 +52,7 @@ class Java9OptionalTest {
         }
 
         @Test
-        void givenJava9Optional_whenPresent_thenTakeAValueFromIt () {
+        void givenJava9Optional_whenPresent_thenTakeAValueFromIt() {
 
             // given
             String expected = "properValue";
@@ -67,7 +67,7 @@ class Java9OptionalTest {
         }
 
         @Test
-        void givenJava9Optional_whenEmpty_thenTakeAValueFromOr () {
+        void givenJava9Optional_whenEmpty_thenTakeAValueFromOr() {
 
             // given
             String defaultValue = "default";

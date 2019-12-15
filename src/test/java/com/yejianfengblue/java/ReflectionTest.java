@@ -147,7 +147,7 @@ class ReflectionTest {
     void ifAGenericTypeIsPartOfClassSignature_thenGenericTypeIsAvailableAtRuntime() {
 
         assertEquals("java.lang.Integer",
-                ((ParameterizedType)IntegerComparator.class.getGenericInterfaces()[0])
+                ((ParameterizedType) IntegerComparator.class.getGenericInterfaces()[0])
                         .getActualTypeArguments()[0]
                         .getTypeName());
     }

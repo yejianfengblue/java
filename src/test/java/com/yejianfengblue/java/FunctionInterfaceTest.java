@@ -48,7 +48,7 @@ class FunctionInterfaceTest {
     @Test
     void operatorTest() {
 
-        UnaryOperator<String> toUpperCase = str ->  str.toUpperCase();
+        UnaryOperator<String> toUpperCase = str -> str.toUpperCase();
         assertEquals("HI", toUpperCase.apply("hi"));
 
         BinaryOperator<Integer> sum = (i1, i2) -> Integer.sum(i1, i2);
