@@ -1,4 +1,4 @@
-package com.yejianfengblue.java.concurrency;
+package com.yejianfengblue.java.concurrency.connection;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

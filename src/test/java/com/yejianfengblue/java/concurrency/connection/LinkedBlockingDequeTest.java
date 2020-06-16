@@ -1,4 +1,4 @@
-package com.yejianfengblue.java.concurrency;
+package com.yejianfengblue.java.concurrency.connection;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
