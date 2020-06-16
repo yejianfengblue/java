@@ -9,6 +9,15 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * This is a test which demonstrates the use of keyword {@code volatile}. <br/>
+ * An operation updating a Java variable aren't performed directly in the main memory (RAM).
+ * CPU have cache memory, the data is first written in the cache and might be moved from the cache to main memory
+ * (no guarantee).
+ * If multiple threads share a variable, one thread updates this variable but the updated data is not written to the main memory,
+ * the other thread can't see this update. So this is a visibility problem.
+ * The keyword {@code volatile} guarantees a variable must always be read from and stored in the main memory, not the
+ * cache of CPU.
+ *
  * @author yejianfengblue
  */
 class VolatileTest {
@@ -25,6 +34,11 @@ class VolatileTest {
         volatile boolean flag = true;
     }
 
+
+    /**
+     * A {@link Runnable} which is assigned a {@link Flag} by outside,
+     * and increases the local variable {@code i} until the {@link Flag#flag} is set to {@code false}.
+     */
     @RequiredArgsConstructor
     private static class Task implements Runnable {
 
@@ -43,6 +57,10 @@ class VolatileTest {
         }
     }
 
+    /**
+     * A {@link Runnable} which is assigned a {@link VolatileFlag} by outside,
+     * and increases the local variable {@code i} until the {@link VolatileFlag#flag} is set to {@code false}.
+     */
     @RequiredArgsConstructor
     private static class VolatileTask implements Runnable {
 
@@ -61,6 +79,21 @@ class VolatileTest {
         }
     }
 
+    /**
+     * <p>
+     *     After the first one-second sleep, the {@link VolatileFlag#flag} is set to false, {@link VolatileTask#run()}
+     *     detects this change, ends the while loop, and prints a log
+     *     <br/>
+     *     [Thread-1] VolatileTest$VolatileTask - VolatileTask STOP. i = 1692919099
+     * </p>
+     * <p>
+     *     After the second one-second sleep, the {@link Flag#flag} is set to false too, but {@link Task#run()} can't
+     *     detect this change, the while loop continues forever
+     * </p>
+     * The last two call to {@link Thread#join()} guarantees the main thread where this test is running doesn't end
+     * until the other two threads end. Because the {@code taskThread} can't detect the flag change, so this thread
+     * runs forever, which causes the main thread doesn't end.
+     */
     @Disabled
     @Test
     void test() throws InterruptedException {
