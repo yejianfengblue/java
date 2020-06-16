@@ -1,7 +1,6 @@
 package com.yejianfengblue.java.concurrency;
 
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,7 +93,6 @@ class VolatileTest {
      * until the other two threads end. Because the {@code taskThread} can't detect the flag change, so this thread
      * runs forever, which causes the main thread doesn't end.
      */
-    @Disabled
     @Test
     void test() throws InterruptedException {
 
@@ -120,7 +118,7 @@ class VolatileTest {
 
         TimeUnit.SECONDS.sleep(1);
 
-        taskThread.join();
+        taskThread.join(10_000);  // make main thread waits for taskThread 10s as most. Omit the arg to wait forever
         volatileTaskThread.join();
     }
 }
