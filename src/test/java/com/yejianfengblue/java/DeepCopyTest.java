@@ -1,18 +1,27 @@
 package com.yejianfengblue.java;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serializable;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeepCopyTest {
 
+    @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
-    static class Address {
+    static class Address implements Serializable {
 
         private String street;
 
@@ -26,10 +35,11 @@ class DeepCopyTest {
         }
     }
 
+    @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
-    static class User {
+    static class User implements Serializable {
 
         private String name;
 
@@ -86,6 +96,59 @@ class DeepCopyTest {
         assertNotEquals(apple.getAddress().getStreet(), appleCopy.getAddress().getStreet());
         // because the mutable object in original and copy are diff object
         assertNotSame(apple.getAddress(), appleCopy.getAddress());
+    }
+
+    @Test
+    void givenDeepCopyViaApacheCommonsLang_whenModifyOriginalMutableObjectField_thenFieldShouldNotChange() {
+
+        User apple = new User("Apple", new Address("Apple Street", "Apple City"));
+
+        // given
+        User copy = SerializationUtils.clone(apple);
+
+        // when
+        apple.getAddress().setStreet("Banana Street");
+
+        // then
+        assertThat(copy.getAddress().getStreet())
+                .isNotEqualTo(apple.getAddress().getStreet());
+
+    }
+
+    @Test
+    void givenDeepCopyViaGson_whenModifyOriginalMutableObjectField_thenFieldShouldNotChange() {
+
+        User apple = new User("Apple", new Address("Apple Street", "Apple City"));
+        Gson gson = new Gson();
+
+        // given
+        User copy = gson.fromJson(gson.toJson(apple), User.class);
+
+        // when
+        apple.getAddress().setStreet("Banana Street");
+
+        // then
+        assertThat(copy.getAddress().getStreet())
+                .isNotEqualTo(apple.getAddress().getStreet());
+
+    }
+
+    @Test
+    void givenDeepCopyViaJackson_whenModifyOriginalMutableObjectField_thenFieldShouldNotChange() throws JsonProcessingException {
+
+        User apple = new User("Apple", new Address("Apple Street", "Apple City"));
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // given
+        User copy = objectMapper.readValue(objectMapper.writeValueAsString(apple), User.class);
+
+        // when
+        apple.getAddress().setStreet("Banana Street");
+
+        // then
+        assertThat(copy.getAddress().getStreet())
+                .isNotEqualTo(apple.getAddress().getStreet());
+
     }
 
 }
