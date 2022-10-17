@@ -26,7 +26,7 @@ class CloneTest {
 
         CloneNotSupportClass cloneNotSupportClass = new CloneNotSupportClass();
 
-        assertThatThrownBy(() -> cloneNotSupportClass.clone())
+        assertThatThrownBy(cloneNotSupportClass::clone)
                 .isInstanceOf(CloneNotSupportedException.class);
     }
 
@@ -54,7 +54,7 @@ class CloneTest {
 
         CloneCatchClass original = new CloneCatchClass("x");
 
-        assertDoesNotThrow(() -> original.clone());
+        assertDoesNotThrow(original::clone);
 
         CloneCatchClass clone = original.clone();
         assertThat(clone)
@@ -87,7 +87,7 @@ class CloneTest {
 
         CloneableClass cloneableClass = new CloneableClass();
 
-        assertDoesNotThrow(() -> cloneableClass.clone());
+        assertDoesNotThrow(cloneableClass::clone);
     }
 
 }
